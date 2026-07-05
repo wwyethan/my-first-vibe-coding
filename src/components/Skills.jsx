@@ -6,6 +6,8 @@ function Skills() {
     { name: 'React', icon: '⚛️', level: 'Learning', color: '#61dafb' },
     { name: 'AI', icon: '🤖', level: 'Exploring', color: '#ff6b6b' },
     { name: 'Vibe Coding', icon: '🎵', level: 'Having Fun!', color: '#a29bfe' },
+    { name: 'POXEL.IO', icon: '🔫', level: 'Playing', color: '#ff9f43' },
+    { name: 'BOXEL.IO', icon: '⚔️', level: 'Playing', color: '#0abde3' },
   ]
 
   return (
