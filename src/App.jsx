@@ -8,7 +8,7 @@ function App() {
       <About />
       <Skills />
       <footer className="footer">
-        <p>Made with ❤️ by wwyethan</p>
+        <p>Made with ❤️ by HeavySniper</p>
       </footer>
     </div>
   )

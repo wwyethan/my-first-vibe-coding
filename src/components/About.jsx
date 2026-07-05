@@ -5,7 +5,7 @@ function About() {
     <section className="about">
       <div className="about-card">
         <div className="avatar">👋</div>
-        <h1>Hi, I'm <span className="highlight">wwyethan</span></h1>
+        <h1>Hi, I'm <span className="highlight">HeavySniper</span></h1>
         <div className="info-grid">
           <div className="info-item">
             <span className="emoji">🎂</span>
