@@ -10,6 +10,7 @@ function Skills() {
     { name: 'BOXEL.IO', icon: '⚔️', level: 'Playing', color: '#0abde3' },
     { name: 'Mathematics', icon: '🧮', level: 'Learning', color: '#6c5ce7' },
     { name: 'Biology', icon: '🧬', level: 'Learning', color: '#00b894' },
+    { name: 'Morse Code', icon: '📡', level: 'Learning', color: '#e17055' },
   ]
 
   return (
