@@ -8,6 +8,8 @@ function Skills() {
     { name: 'Vibe Coding', icon: '🎵', level: 'Having Fun!', color: '#a29bfe' },
     { name: 'POXEL.IO', icon: '🔫', level: 'Playing', color: '#ff9f43' },
     { name: 'BOXEL.IO', icon: '⚔️', level: 'Playing', color: '#0abde3' },
+    { name: 'Mathematics', icon: '🧮', level: 'Learning', color: '#6c5ce7' },
+    { name: 'Biology', icon: '🧬', level: 'Learning', color: '#00b894' },
   ]
 
   return (
