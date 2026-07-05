@@ -2,112 +2,153 @@
   padding: 2rem;
   display: flex;
   justify-content: center;
+  position: relative;
+  z-index: 1;
   animation: fadeIn 0.8s ease-out;
 }
 
 .about-card {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 24px;
-  padding: 3rem;
-  max-width: 500px;
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid #0f0;
+  border-radius: 12px;
+  max-width: 550px;
   width: 100%;
-  text-align: center;
-  box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
-  transform: translateY(0);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: left;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.15), inset 0 0 20px rgba(0, 255, 0, 0.05);
+  overflow: hidden;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .about-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 30px 80px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 0 40px rgba(0, 255, 0, 0.3), inset 0 0 30px rgba(0, 255, 0, 0.08);
+  transform: translateY(-5px);
 }
 
-.avatar {
-  font-size: 5rem;
-  margin-bottom: 1rem;
-  animation: wave 2s ease-in-out infinite;
-  display: inline-block;
+.terminal-header {
+  background: #111;
+  padding: 0.8rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 1px solid #222;
 }
 
-.about-card h1 {
-  color: white;
-  font-size: 2rem;
-  margin-bottom: 2rem;
+.terminal-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
 }
 
-.highlight {
-  background: linear-gradient(120deg, #f093fb 0%, #f5576c 100%);
-  padding: 0.2rem 0.8rem;
-  border-radius: 8px;
-  display: inline-block;
+.terminal-dot.red { background: #ff5f56; }
+.terminal-dot.yellow { background: #ffbd2e; }
+.terminal-dot.green { background: #27c93f; }
+
+.terminal-title {
+  color: #888;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  margin-left: auto;
+}
+
+.terminal-body {
+  padding: 2rem;
+}
+
+.terminal-line {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-family: 'Courier New', monospace;
+}
+
+.prompt {
+  color: #0f0;
+  font-weight: bold;
+  text-shadow: 0 0 8px rgba(0, 255, 0, 0.6);
+}
+
+.command {
+  color: #0f0;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.neon-name {
+  font-family: 'Courier New', monospace;
+  color: #0f0;
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-shadow: 0 0 10px rgba(0, 255, 0, 0.8), 0 0 20px rgba(0, 255, 0, 0.5), 0 0 40px rgba(0, 255, 0, 0.3);
+  margin-bottom: 1.5rem;
+  letter-spacing: 2px;
+}
+
+.cursor {
+  animation: blink 1s step-end infinite;
+  color: #0f0;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 .info-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  margin-bottom: 2rem;
+  gap: 0.8rem;
+  margin-bottom: 1.5rem;
 }
 
 .info-item {
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
-  padding: 1rem;
-  border-radius: 12px;
+  background: rgba(0, 255, 0, 0.05);
+  border: 1px solid rgba(0, 255, 0, 0.2);
+  padding: 0.8rem;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: white;
-  font-size: 0.95rem;
-  transition: transform 0.2s ease, background 0.2s ease;
+  color: #0f0;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
 }
 
 .info-item:hover {
-  transform: scale(1.05);
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(0, 255, 0, 0.1);
+  border-color: rgba(0, 255, 0, 0.5);
+  box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
+  transform: scale(1.03);
 }
 
 .info-item .emoji {
-  font-size: 1.5rem;
-}
-
-.languages h3 {
-  color: white;
-  font-size: 1.1rem;
-  margin-bottom: 1rem;
+  font-size: 1.3rem;
 }
 
 .lang-tags {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   flex-wrap: wrap;
-  gap: 0.8rem;
+  gap: 0.6rem;
 }
 
 .lang-tag {
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  transition: transform 0.2s ease, background 0.2s ease;
+  background: rgba(0, 255, 0, 0.08);
+  border: 1px solid rgba(0, 255, 0, 0.3);
+  color: #0f0;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-family: 'Courier New', monospace;
+  transition: all 0.2s ease;
 }
 
 .lang-tag:hover {
-  transform: scale(1.1);
-  background: rgba(255, 255, 255, 0.3);
-}
-
-@keyframes wave {
-  0%, 100% {
-    transform: rotate(0deg);
-  }
-  25% {
-    transform: rotate(20deg);
-  }
-  75% {
-    transform: rotate(-20deg);
-  }
+  background: rgba(0, 255, 0, 0.15);
+  border-color: #0f0;
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+  transform: scale(1.05);
 }
 
 @keyframes fadeIn {
@@ -123,14 +164,18 @@
 
 @media (max-width: 480px) {
   .about-card {
-    padding: 2rem;
+    margin: 1rem;
   }
-  
+
+  .terminal-body {
+    padding: 1.5rem;
+  }
+
   .info-grid {
     grid-template-columns: 1fr;
   }
-  
-  .about-card h1 {
-    font-size: 1.5rem;
+
+  .neon-name {
+    font-size: 1.8rem;
   }
 }

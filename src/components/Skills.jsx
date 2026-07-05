@@ -14,10 +14,20 @@ function Skills() {
 
   return (
     <section className="skills">
-      <h2 className="skills-title">My Skills</h2>
+      <div className="skills-header">
+        <span className="prompt">&gt;</span>
+        <h2 className="skills-title">ls ./skills/</h2>
+      </div>
       <div className="skills-grid">
-        {skills.map((skill) => (
-          <div key={skill.name} className="skill-card">
+        {skills.map((skill, index) => (
+          <div
+            key={skill.name}
+            className="skill-card"
+            style={{
+              '--glow-color': skill.color,
+              animationDelay: `${index * 0.1}s`,
+            }}
+          >
             <div className="skill-icon">{skill.icon}</div>
             <h3 className="skill-name">{skill.name}</h3>
             <span className="skill-level">{skill.level}</span>
