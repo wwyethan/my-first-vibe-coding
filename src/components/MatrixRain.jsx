@@ -11,7 +11,7 @@ function MatrixRain() {
     canvas.width = window.innerWidth
     canvas.height = window.innerHeight
 
-    const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン'
+    const chars = '01'
     const fontSize = 10
     const columns = canvas.width / fontSize
     const drops = Array(Math.floor(columns)).fill(1)
