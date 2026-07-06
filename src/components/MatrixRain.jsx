@@ -12,7 +12,7 @@ function MatrixRain() {
     canvas.height = window.innerHeight
 
     const chars = '01'
-    const fontSize = 14
+    const fontSize = 12
     const columns = canvas.width / fontSize
     const drops = Array(Math.floor(columns)).fill(1)
 
@@ -35,7 +35,7 @@ function MatrixRain() {
       }
     }
 
-    const interval = setInterval(draw, 50)
+    const interval = setInterval(draw, 30)
 
     const handleResize = () => {
       canvas.width = window.innerWidth
