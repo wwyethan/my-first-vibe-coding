@@ -48,10 +48,16 @@
   .date-line{ text-align:right; margin-top:24px; font-size:14px; color:var(--soft); }
   .date-line b{ border-bottom:1px solid var(--ink); padding:0 14px; }
   @media print{
-    body{ background:#fff; }
+    body{ background:#fff; color:#1a202c; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
     .page{ max-width:none; padding:0; }
     @page{ size:A4; margin:16mm; }
-    .goal,.gate,.promise,.school{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    h1,h2,.goal,.gate,.promise,.school,.tag,.period,.sub,.date-line,.sign,.lbl{ color:#1a202c !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    .goal{ background:#ebf4ff !important; }
+    .gate{ background:#fff5f5 !important; }
+    .gate .k{ color:#c53030 !important; }
+    .promise{ background:#fffaf0 !important; }
+    .school{ background:#f0fff4 !important; }
+    .tag{ background:#edf2f7 !important; color:#4a5568 !important; }
   }
 </style>
 </head>

@@ -43,16 +43,19 @@
   .foot .ln{ border-bottom:1px solid var(--ink); height:24px; margin-top:4px; }
   .hint{ text-align:center; color:#a0aec0; font-size:12px; margin-top:14px; }
   @media print{
-    body{ background:#fff; }
+    body{ background:#fff; color:#1a202c; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
     .page{ max-width:none; padding:0; }
     @page{ size:A4 landscape; margin:10mm 12mm; }
     .hint{ display:none; }
     .top{ margin-bottom:8px; }
-    h1{ font-size:19px; }
-    .rule{ margin-bottom:8px; padding:4px 9px; font-size:11px; }
+    h1,h2,h3,.meta,.rule,th,td,.quiz,.proj,.foot,.hint{ color:#1a202c !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    thead th{ background:#ebf4ff !important; color:#2b6cb0 !important; }
+    .rule{ background:#fff5f5 !important; color:#c53030 !important; margin-bottom:8px; padding:4px 9px; font-size:11px; }
+    .tag{ background:#edf2f7 !important; color:#4a5568 !important; font-size:10px; padding:0 4px; margin-right:3px; }
+    .pass th{ color:#c53030 !important; }
+    .proj .done{ color:#2f855a !important; }
     th,td{ padding:4px 3px; font-size:11.5px; line-height:1.3; }
     tbody th{ font-size:11.5px; }
-    .tag{ font-size:10px; padding:0 4px; margin-right:3px; }
     .chk{ font-size:15px; }
     .bottom{ margin-top:10px; gap:14px; }
     .quiz{ padding:8px 12px; font-size:12px; }
