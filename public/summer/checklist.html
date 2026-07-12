@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>暑期學習打卡表（每周一張）</title>
+<style>
+  :root{ --accent:#2b6cb0; --ink:#1a202c; --soft:#4a5568; --line:#cbd5e0; --head:#ebf4ff; }
+  *{ box-sizing:border-box; }
+  body{
+    font-family:"PingFang TC","Hiragino Sans GB","Microsoft JhengHei",sans-serif;
+    color:var(--ink); margin:0; background:#f7fafc;
+  }
+  .page{ max-width:880px; margin:0 auto; background:#fff; padding:40px 44px; }
+  .top{ display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:14px; flex-wrap:wrap; gap:10px; }
+  h1{ font-size:22px; color:var(--accent); margin:0; letter-spacing:1px; }
+  .meta{ font-size:14px; color:var(--soft); }
+  .meta b{ border-bottom:1px solid var(--ink); padding:0 10px; }
+  .rule{ font-size:12px; color:#c53030; background:#fff5f5; border:1px solid #fc8181; border-radius:6px; padding:5px 10px; margin-bottom:12px; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  table{ width:100%; border-collapse:collapse; table-layout:fixed; }
+  th,td{ border:1px solid var(--line); text-align:center; padding:8px 4px; font-size:13px; }
+  thead th{ background:var(--head); color:var(--accent); font-weight:600; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  th.task{ width:30%; text-align:left; padding-left:12px; }
+  tbody th{ text-align:left; padding-left:12px; font-weight:500; font-size:13px; }
+  .tag{ display:inline-block; background:#edf2f7; border-radius:4px; padding:0 6px; font-size:11px; color:var(--soft); margin-right:4px; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .chk{ font-size:18px; color:var(--line); }
+  .num td{ background:#fcfcfd; }
+  .num th{ color:var(--soft); }
+  .pass th{ color:#c53030; font-weight:600; }
+  .bottom{ display:flex; gap:18px; flex-wrap:wrap; align-items:flex-start; margin-top:18px; }
+  .bottom > *{ flex:1 1 320px; min-width:0; }
+  .quiz{ border:1px solid var(--line); border-radius:8px; padding:12px 16px; font-size:14px; }
+  .quiz h3{ margin:0 0 8px; font-size:15px; color:var(--accent); }
+  .quiz .row{ display:flex; flex-wrap:wrap; gap:24px; }
+  .quiz .item b{ border-bottom:1px solid var(--ink); padding:0 12px; }
+  .proj{ min-width:0; }
+  .proj h3{ margin:0 0 8px; font-size:15px; color:var(--accent); }
+  .proj .note{ font-size:12px; color:#a0aec0; font-weight:400; margin-left:6px; }
+  .proj th.l, .proj td.l{ text-align:left; padding-left:12px; }
+  .proj .done{ color:#2f855a; font-weight:600; }
+  .foot{ margin-top:16px; display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap; font-size:14px; }
+  .foot .blk{ flex:1; min-width:200px; }
+  .foot .ln{ border-bottom:1px solid var(--ink); height:24px; margin-top:4px; }
+  .hint{ text-align:center; color:#a0aec0; font-size:12px; margin-top:14px; }
+  @media print{
+    body{ background:#fff; }
+    .page{ max-width:none; padding:0; }
+    @page{ size:A4 landscape; margin:10mm 12mm; }
+    .hint{ display:none; }
+    .top{ margin-bottom:8px; }
+    h1{ font-size:19px; }
+    .rule{ margin-bottom:8px; padding:4px 9px; font-size:11px; }
+    th,td{ padding:4px 3px; font-size:11.5px; line-height:1.3; }
+    tbody th{ font-size:11.5px; }
+    .tag{ font-size:10px; padding:0 4px; margin-right:3px; }
+    .chk{ font-size:15px; }
+    .bottom{ margin-top:10px; gap:14px; }
+    .quiz{ padding:8px 12px; font-size:12px; }
+    .quiz h3{ font-size:13px; margin-bottom:5px; }
+    .quiz .row{ gap:10px; }
+    .proj h3{ font-size:13px; margin-bottom:5px; }
+    .foot{ margin-top:10px; font-size:12px; }
+    /* 不讓主表或底部區被從中間切開 */
+    table, .bottom > *{ page-break-inside:avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="top">
+    <h1>暑期學習打卡表</h1>
+    <div class="meta">第 <b>  </b> 周 | <b> / </b> — <b> / </b> | 姓名 <b>    </b></div>
+  </div>
+
+  <div class="rule">⭐ 過關制：每項要「全對 + 自檢圈錯 + 錯的當場改到懂」才算過關；寫滿 ≠ 完成，沒過當場重做。</div>
+
+  <table>
+    <thead>
+      <tr>
+        <th class="task">每天要做的事（做完過關才打勾）</th>
+        <th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th><th>日</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><th><span class="tag">熱身</span>默寫昨天 中8+英8（全對）</th><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+      <tr><th><span class="tag">中文</span>寫字：抄五年級課本一頁 + 生字入本（自檢）</th><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+      <tr><th><span class="tag">英文</span>寫字：抄五年級課本一頁 + 生詞入本15（自檢）</th><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+      <tr><th><span class="tag">英文</span>Grammar 一頁 + 挑戰2題（全對）</th><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+      <tr><th><span class="tag">數學</span>兩節 + 錯題訂正入本</th><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+      <tr><th><span class="tag">閱讀</span>中文 · 網上圖書館</th><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+      <tr><th><span class="tag">閱讀</span>英文 · Raz Kids</th><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+      <tr><th><span class="tag">閱讀</span>範文一篇 + 摘抄</th><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+      <tr><th><span class="tag">寫作</span>週記（週六）</th><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td class="chk">☐</td><td>—</td></tr>
+      <tr class="pass"><th>✅ 今日全部過關</th><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+      <tr class="num"><th>其中「一次過」幾項 / 重做幾項</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr class="num"><th>今天記了幾個新字/詞</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    </tbody>
+  </table>
+
+  <div class="bottom">
+  <div class="quiz">
+    <h3>週日 · 本週小測</h3>
+    <div class="row">
+      <span class="item">中文生字默寫：對 <b>  </b> / <b>  </b></span>
+      <span class="item">英文 Spelling：對 <b>  </b> / <b>  </b></span>
+      <span class="item">數學錯題重做：對 <b>  </b> / <b>  </b></span>
+      <span class="item">中華文化本週推進：<b>  </b></span>
+    </div>
+  </div>
+
+  <div class="proj">
+    <h3>學校暑期任務進度 <span class="note">（跨整個暑假，只需維護最新一張）</span></h3>
+    <table>
+      <thead><tr><th class="l">學校任務</th><th style="width:16%">截止</th><th style="width:26%">進度</th></tr></thead>
+      <tbody>
+        <tr><td class="l">體育 · 世界盃網上小挑戰</td><td>—</td><td class="done">✅ 已完成</td></tr>
+        <tr><td class="l">中華文化 · 三大學習計劃（篇篇流螢 / 閱遊故宮 / 雲遊長城）</td><td>8/31</td><td>☐&nbsp;&nbsp;☐&nbsp;&nbsp;☐</td></tr>
+        <tr><td class="l">數理常識挑戰 2026（特別通告 478）</td><td>待定</td><td>☐</td></tr>
+        <tr><td class="l">幸福百寶被（暑假篇）</td><td>待定</td><td>☐</td></tr>
+      </tbody>
+    </table>
+  </div>
+  </div>
+
+  <div class="foot">
+    <div class="blk">本週之星 / 表現：<div class="ln"></div></div>
+    <div class="blk">家長簽名：<div class="ln"></div></div>
+    <div class="blk">本週獎勵：<div class="ln"></div></div>
+  </div>
+
+  <div class="hint">提示：瀏覽器打開後按 Cmd/Ctrl+P 列印；本表橫向 A4，建議每週列印一張。</div>
+</div>
+</body>
+</html>

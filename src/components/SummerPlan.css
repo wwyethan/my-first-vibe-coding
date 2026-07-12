@@ -1,0 +1,86 @@
+.summer-plan {
+  padding: 2rem;
+  position: relative;
+  z-index: 1;
+  animation: fadeIn 0.8s ease-out 0.5s both;
+}
+
+.summer-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  font-family: 'Courier New', monospace;
+}
+
+.summer-header .prompt {
+  color: #0f0;
+  font-size: 1.5rem;
+  text-shadow: 0 0 8px rgba(0, 255, 0, 0.6);
+}
+
+.summer-title {
+  font-size: 1.8rem;
+  color: #0f0;
+  font-family: 'Courier New', monospace;
+  text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+  letter-spacing: 1px;
+}
+
+.summer-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.summer-card {
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid #0f0;
+  border-radius: 12px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  text-decoration: none;
+  width: 220px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.summer-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 0 20px #0f0, 0 0 40px rgba(0, 255, 0, 0.4);
+}
+
+.summer-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  filter: drop-shadow(0 0 8px #0f0);
+}
+
+.summer-name {
+  font-size: 1.1rem;
+  color: #eee;
+  margin-bottom: 0.8rem;
+  font-family: 'Courier New', monospace;
+}
+
+.summer-desc {
+  display: inline-block;
+  background: transparent;
+  border: 1px solid #0f0;
+  color: #0f0;
+  padding: 0.3rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-family: 'Courier New', monospace;
+  text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+}
+
+.summer-card:hover .summer-desc {
+  background: #0f0;
+  color: #000;
+  text-shadow: none;
+}
