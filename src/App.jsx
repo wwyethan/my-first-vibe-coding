@@ -11,6 +11,7 @@ function App() {
       <Skills />
       <footer className="footer">
         <p>Made with ❤️ by Ethan</p>
+        <button className="castle-button" aria-label="城堡">🏰</button>
       </footer>
     </div>
   )
