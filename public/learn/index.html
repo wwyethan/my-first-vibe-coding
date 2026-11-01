@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>網頁製作 · 學習筆記</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      :root {
+        --green: #0f0;
+        --green-soft: #7dffa8;
+        --text: #d6f5de;
+        --card-bg: rgba(0, 0, 0, 0.72);
+      }
+
+      body {
+        background: #000;
+        color: var(--text);
+        font-family: -apple-system, BlinkMacSystemFont, 'PingFang HK', 'PingFang TC',
+          'Microsoft JhengHei', 'Noto Sans TC', 'Segoe UI', sans-serif;
+        line-height: 1.7;
+        min-height: 100vh;
+        padding: 2rem 1.2rem 4rem;
+        /* 淡淡的綠色光暈背景 */
+        background-image: radial-gradient(circle at 50% 0%, rgba(0, 255, 0, 0.08), transparent 55%);
+      }
+
+      .wrap { max-width: 820px; margin: 0 auto; }
+
+      /* ===== 頂部標題 ===== */
+      header { text-align: center; margin-bottom: 2rem; }
+
+      .term {
+        font-family: 'Courier New', monospace;
+        color: var(--green);
+        font-size: 0.95rem;
+        letter-spacing: 1px;
+        text-shadow: 0 0 8px rgba(0, 255, 0, 0.5);
+        margin-bottom: 0.6rem;
+      }
+      .term .prompt { margin-right: 0.4rem; }
+
+      h1 {
+        font-family: 'Courier New', monospace;
+        color: var(--green);
+        font-size: 2rem;
+        letter-spacing: 2px;
+        text-shadow: 0 0 14px rgba(0, 255, 0, 0.55);
+        margin-bottom: 0.5rem;
+      }
+
+      .sub { color: #9fe8b0; font-size: 0.95rem; opacity: 0.9; }
+
+      /* ===== 控制列 ===== */
+      .controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+        justify-content: center;
+        margin: 1.4rem 0 0.4rem;
+      }
+      .controls button,
+      .controls a {
+        font-family: 'Courier New', monospace;
+        font-size: 0.82rem;
+        color: var(--green-soft);
+        background: rgba(0, 255, 0, 0.06);
+        border: 1px solid rgba(0, 255, 0, 0.4);
+        border-radius: 999px;
+        padding: 0.45rem 1rem;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.25s ease;
+      }
+      .controls button:hover,
+      .controls a:hover {
+        background: rgba(0, 255, 0, 0.18);
+        box-shadow: 0 0 14px rgba(0, 255, 0, 0.45);
+        color: #eafff0;
+      }
+
+      /* ===== 知識卡 ===== */
+      .cards { display: flex; flex-direction: column; gap: 0.9rem; margin-top: 1.4rem; }
+
+      .card {
+        background: var(--card-bg);
+        border: 1px solid rgba(0, 255, 0, 0.3);
+        border-radius: 12px;
+        overflow: hidden;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      }
+      .card:hover { border-color: rgba(0, 255, 0, 0.65); box-shadow: 0 0 16px rgba(0, 255, 0, 0.16); }
+      .card.open { border-color: var(--green); box-shadow: 0 0 22px rgba(0, 255, 0, 0.26); }
+
+      .card-head {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 0.9rem;
+        padding: 1rem 1.2rem;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        text-align: left;
+        font-family: inherit;
+        color: inherit;
+      }
+
+      .card-icon {
+        font-size: 1.7rem;
+        filter: drop-shadow(0 0 6px rgba(0, 255, 0, 0.5));
+        flex-shrink: 0;
+      }
+
+      .card-titles { display: flex; flex-direction: column; gap: 0.15rem; flex: 1; min-width: 0; }
+      .card-title {
+        color: #eafff0;
+        font-size: 1.14rem;
+        font-family: 'Courier New', monospace;
+        letter-spacing: 0.5px;
+      }
+      .card-en {
+        color: #4fd97a;
+        font-size: 0.78rem;
+        font-family: 'Courier New', monospace;
+        letter-spacing: 0.5px;
+        opacity: 0.85;
+      }
+
+      .card-chev {
+        color: var(--green);
+        font-size: 1.5rem;
+        font-family: 'Courier New', monospace;
+        line-height: 1;
+        text-shadow: 0 0 8px rgba(0, 255, 0, 0.6);
+        flex-shrink: 0;
+        width: 1.2rem;
+        text-align: center;
+      }
+
+      .card-body {
+        display: none;
+        padding: 0.2rem 1.4rem 1.4rem;
+        border-top: 1px solid rgba(0, 255, 0, 0.18);
+      }
+      .card.open .card-body { display: block; animation: fadeIn 0.3s ease both; }
+
+      .card-body p { font-size: 1rem; line-height: 1.9; margin: 0.9rem 0; }
+
+      .example {
+        margin: 1.1rem 0;
+        padding: 0.9rem 1.1rem;
+        background: rgba(0, 255, 0, 0.07);
+        border-left: 3px solid var(--green);
+        border-radius: 0 8px 8px 0;
+      }
+      .example-label {
+        display: block;
+        color: var(--green);
+        font-family: 'Courier New', monospace;
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+        margin-bottom: 0.4rem;
+        text-shadow: 0 0 6px rgba(0, 255, 0, 0.5);
+      }
+      .example p { margin: 0; color: #e8ffef; }
+
+      pre.code {
+        margin: 1rem 0 0.2rem;
+        padding: 0.9rem 1.1rem;
+        background: #04140a;
+        border: 1px solid rgba(0, 255, 0, 0.25);
+        border-radius: 8px;
+        overflow-x: auto;
+      }
+      pre.code code {
+        color: var(--green-soft);
+        font-family: 'Courier New', monospace;
+        font-size: 0.85rem;
+        line-height: 1.6;
+        white-space: pre;
+        text-shadow: 0 0 4px rgba(0, 255, 0, 0.3);
+      }
+
+      footer {
+        text-align: center;
+        margin-top: 2.5rem;
+        color: #4fd97a;
+        font-family: 'Courier New', monospace;
+        font-size: 0.8rem;
+        opacity: 0.7;
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-6px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @media (max-width: 480px) {
+        h1 { font-size: 1.5rem; }
+        .card-head { padding: 0.9rem 1rem; gap: 0.7rem; }
+        .card-icon { font-size: 1.4rem; }
+        .card-title { font-size: 1rem; }
+        .card-body { padding: 0.2rem 1rem 1.1rem; }
+        .card-body p { font-size: 0.94rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <div class="term"><span class="prompt">&gt;</span>cat ./learn/README.md</div>
+        <h1>網頁製作 · 學習筆記</h1>
+        <p class="sub">給初學者的通俗解說 · 點一下卡片就能展開來讀 📖</p>
+        <div class="controls">
+          <button id="expandAll" type="button">全部展開</button>
+          <button id="collapseAll" type="button">全部收起</button>
+          <a href="../">← 返回主頁</a>
+        </div>
+      </header>
+
+      <main class="cards" id="cards"></main>
+
+      <footer>Happy coding · 慢慢學，一步一步來 🌱</footer>
+    </div>
+
+    <script>
+      // ===== 學習內容資料（繁體中文 · 通用教材）=====
+      const topics = [
+        {
+          icon: '🏠',
+          title: '網頁三兄弟',
+          en: 'HTML · CSS · JavaScript',
+          paras: [
+            '每一個網頁，其實是由三樣東西合作做成的，我們常把它們叫「網頁三兄弟」：',
+            '① HTML = 骨架 / 結構。就像蓋房子的磚牆和框架，決定「這裡有一個標題、那裡有一張圖、下面有一個按鈕」。',
+            '② CSS = 裝修 / 樣式。就像油漆、燈飾、家具，決定「這個東西是什麼顏色、多大、在左還是在右、會不會發光」。',
+            '③ JavaScript（簡稱 JS）= 行為 / 互動。就像水電和開關，讓網頁「活」起來——按了有反應、會動、會變化。',
+          ],
+          example:
+            '一個按鈕：HTML 決定「有一個按鈕」，CSS 決定「它是綠色發光的」，JavaScript 決定「按它會發生什麼事」。三兄弟一起合作，才有完整的網頁。',
+          code: `<button class="btn">按我</button>          ← 結構 (HTML)
+.btn { color: #0f0; border: 1px solid; }   ← 樣式 (CSS)
+btn.onclick = () => alert('你好！')        ← 行為 (JS)`,
+        },
+        {
+          icon: '🧱',
+          title: '元件（積木）',
+          en: 'React Component',
+          paras: [
+            'React 是一個幫我們做網頁的工具。它最有名的一個想法，叫「元件（Component）」。',
+            '元件就像樂高積木：把一個大網頁，拆成一塊塊小零件，每塊零件自己管好自己，再拼在一起。',
+            '好處有兩個：想改哪塊就改哪塊，不會弄壞別的；同一塊積木還能重複用很多次。',
+          ],
+          example:
+            '例如一個網站可以拆成：頂部選單、關於我、技能列表、頁腳……每一塊都是一個元件，最後拼成整頁。',
+          code: `<App>
+  <Header />
+  <About />
+  <Skills />
+  <Footer />
+</App>`,
+        },
+        {
+          icon: '📝',
+          title: '在 JS 裡寫 HTML',
+          en: 'JSX',
+          paras: [
+            '用 React 時，你會看到在 JavaScript 檔案裡，寫了一些「長得像 HTML」的東西，例如 <button>按我</button>。',
+            '這種「在 JS 裡寫 HTML 樣子」的寫法，叫做 JSX。React 用它來描述「這個元件長什麼樣」。',
+            '一個小規則：JSX 裡要寫 class 時，得改成 className（因為 class 在 JS 裡已經是另一個意思了）。',
+          ],
+          example:
+            '<button className="btn">按我</button> 就是 JSX——它告訴 React：「幫我畫一個按鈕，上面寫『按我』。」',
+        },
+        {
+          icon: '🧠',
+          title: '網頁的「記憶」',
+          en: 'State · useState',
+          paras: [
+            'State（狀態）就是網頁的「記憶」——它記住「現在是什麼情況」。',
+            '例如一個開關：某個畫面現在是「開」還是「關」？網頁需要記住這件事，這個記憶就是 state。',
+            '在 React 裡，我們用 useState 來建立一個 state。最神奇的是：state 一改變，網頁會自動重新畫一遍，顯示新樣子。',
+          ],
+          example:
+            '例如：按一下按鈕 → 把 state 從 false 改成 true → 網頁就自動顯示一個新畫面；再按一下改回 false → 畫面消失。',
+          code: `const [open, setOpen] = useState(false)
+// open    = 目前的值（false 關 / true 開）
+// setOpen = 用來改變它的工具`,
+        },
+        {
+          icon: '🎬',
+          title: '讓東西動起來',
+          en: 'CSS Animation',
+          paras: [
+            'CSS 不只能讓東西好看，還能讓它們「動起來」！',
+            '做法是先寫一個 @keyframes（關鍵幀），告訴電腦「從什麼樣子，變成什麼樣子」，再套到某個東西上，它就會自動一直播放。',
+            '旋轉、發光、飛過來、慢慢出現（淡入）……全都是這樣做出來的。',
+          ],
+          example:
+            '例如一個不停旋轉的圖案：動畫從「轉 0 度」到「轉 360 度」，然後無限重複，看起來就一直在轉。',
+          code: `@keyframes spin {
+  to { transform: rotate(360deg); }
+}`,
+        },
+        {
+          icon: '🖼️',
+          title: '畫布（一格一格畫）',
+          en: 'Canvas',
+          paras: [
+            'Canvas（畫布）是 HTML 裡一塊特別的空白區域，你可以用 JavaScript 在上面「畫畫」。',
+            '它很適合畫很多很多會動的小東西，例如遊戲畫面、粒子特效。',
+            '原理像翻頁動畫書：電腦每秒畫很多次（每一次叫一「幀 frame」），每幀畫一點新的、擦掉一點舊的，眼睛就覺得它在動。',
+          ],
+          example:
+            '例如經典的「數字雨（Matrix Rain）」效果：每一幀畫一個綠色字符，再蓋上一層淡淡的黑色讓舊字符慢慢變淡，字符看起來就不斷往下掉、後面拖著尾巴。',
+        },
+        {
+          icon: '✏️',
+          title: '用文字描述圖形',
+          en: 'SVG',
+          paras: [
+            'SVG 是另一種畫圖方式：用文字「描述」一個圖形——例如「在這裡畫一個三角形、在那裡畫一個長方形」。',
+            '它最大的好處是：不管放多大都不會模糊（因為它用數學描述形狀，不是一個個像素點）。',
+            '很適合畫標誌、圖示、插圖，甚至一整座城堡。',
+          ],
+          example:
+            '例如用 <polygon>（多邊形）就能畫出城堡的尖頂；用 <rect>（長方形）畫塔身；一塊塊拼起來，就成了一座城堡。',
+          code: `<polygon points="400,58 330,253 470,253" />
+↑ 一個三角形（由三個座標點組成）`,
+        },
+        {
+          icon: '🔤',
+          title: '程式小字典',
+          en: '變數 · 字串 · 陣列',
+          paras: [
+            '變數（variable）：一個貼了名字標籤的盒子，裡面裝一個值。例如 score = 100，就是有個叫 score 的盒子裝著 100。',
+            '字串（string）：用引號包起來的文字，例如 \'hello\'、\'🏰\'。引號是在告訴電腦「這是一段文字，原樣顯示」。',
+            '陣列（array）：一排編了號的盒子，一次裝很多東西。例如一個清單，裡面放了好幾筆資料。',
+          ],
+          example:
+            '例如一個技能清單 skills 是陣列，裡面每一筆 { ... } 是一個技能（有名字、圖示、顏色）。程式用一個迴圈，把它們一個個變成畫面上的方塊。',
+          code: `const skills = [
+  { name: 'JavaScript', icon: '⚡' },
+  { name: 'React', icon: '⚛️' },
+]`,
+        },
+        {
+          icon: '📦',
+          title: '打包和預覽工具',
+          en: 'Build · Vite',
+          paras: [
+            '瀏覽器其實看不懂 React 和 JSX，也不認識我們分好的一個個元件檔案。',
+            '所以發布前，要先把程式碼「打包（build）」——翻譯、合併、壓縮成瀏覽器能直接執行的檔案。',
+            '常見的工具叫 Vite（讀作「veet」）。它還能在開發時幫我們「即時預覽」：一改程式碼，網頁馬上更新。',
+          ],
+          example:
+            '開發時跑的 npm run dev，會開一個只有你電腦看得到的本地預覽；發布前跑的 npm run build，就是把程式碼打包好。',
+          code: `npm run dev     ← 開本地預覽（自己電腦看）
+npm run build   ← 打包（準備發布）`,
+        },
+        {
+          icon: '🚀',
+          title: '存檔 + 發布上線',
+          en: 'Git · GitHub Pages',
+          paras: [
+            'Git 是給程式碼「存檔」的工具：每次改好就存一個檔（叫 commit），記錄改了什麼。萬一改壞了，可以回到以前的存檔——就像遊戲的存檔點！',
+            'GitHub 是一個把程式碼放到網上的地方（叫倉庫 repository）。push（推送）就是把你的存檔上傳上去。',
+            'GitHub Pages 會自動把你上傳的網站，發布到一個全世界都能打開的網址。',
+          ],
+          example: '發布上線通常是三步：git commit（存檔）→ git push（上傳）→ GitHub 自動打包發布 → 網站更新！',
+          code: `git add .             ← 選好要存檔的檔案
+git commit -m "說明"   ← 存一個檔
+git push origin main  ← 上傳，自動發布`,
+        },
+        {
+          icon: '🎮',
+          title: '遊戲是怎麼運作的？',
+          en: '場景 + 互動 + 狀態',
+          paras: [
+            '很多網頁小遊戲，其實就是三樣東西組成的：場景、互動、狀態。',
+            '場景（scene）：一個個畫面，你從一個走到下一個（例如：城堡外面 → 大廳 → 下一個房間）。',
+            '互動 + 狀態：按按鈕、點東西（互動），加上網頁記住「你現在在哪、發生過什麼事」（狀態）。',
+          ],
+          example:
+            '所以「場景切換 + 互動 + 記住狀態」，就是遊戲最核心的骨架。學會做網頁，其實已經離做遊戲不遠了！',
+        },
+      ]
+
+      // ===== 把資料變成一張張卡片 =====
+      const cards = document.getElementById('cards')
+
+      topics.forEach((t) => {
+        const card = document.createElement('div')
+        card.className = 'card'
+
+        const head = document.createElement('button')
+        head.className = 'card-head'
+        head.type = 'button'
+        head.setAttribute('aria-expanded', 'false')
+
+        const icon = document.createElement('span')
+        icon.className = 'card-icon'
+        icon.textContent = t.icon
+
+        const titles = document.createElement('span')
+        titles.className = 'card-titles'
+        const title = document.createElement('span')
+        title.className = 'card-title'
+        title.textContent = t.title
+        const en = document.createElement('span')
+        en.className = 'card-en'
+        en.textContent = t.en
+        titles.append(title, en)
+
+        const chev = document.createElement('span')
+        chev.className = 'card-chev'
+        chev.textContent = '+'
+
+        head.append(icon, titles, chev)
+
+        const body = document.createElement('div')
+        body.className = 'card-body'
+        t.paras.forEach((p) => {
+          const el = document.createElement('p')
+          el.textContent = p
+          body.append(el)
+        })
+        if (t.example) {
+          const ex = document.createElement('div')
+          ex.className = 'example'
+          const label = document.createElement('span')
+          label.className = 'example-label'
+          label.textContent = '💡 舉個例子'
+          const exp = document.createElement('p')
+          exp.textContent = t.example
+          ex.append(label, exp)
+          body.append(ex)
+        }
+        if (t.code) {
+          const pre = document.createElement('pre')
+          pre.className = 'code'
+          const code = document.createElement('code')
+          code.textContent = t.code
+          pre.append(code)
+          body.append(pre)
+        }
+
+        head.addEventListener('click', () => {
+          const isOpen = card.classList.toggle('open')
+          head.setAttribute('aria-expanded', String(isOpen))
+          chev.textContent = isOpen ? '−' : '+'
+        })
+
+        card.append(head, body)
+        cards.append(card)
+      })
+
+      // ===== 全部展開 / 全部收起 =====
+      function setAll(open) {
+        document.querySelectorAll('.card').forEach((c) => {
+          c.classList.toggle('open', open)
+          c.querySelector('.card-head').setAttribute('aria-expanded', String(open))
+          c.querySelector('.card-chev').textContent = open ? '−' : '+'
+        })
+      }
+      document.getElementById('expandAll').addEventListener('click', () => setAll(true))
+      document.getElementById('collapseAll').addEventListener('click', () => setAll(false))
+    </script>
+  </body>
+</html>

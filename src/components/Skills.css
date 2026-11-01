@@ -160,3 +160,31 @@
     font-size: 1.3rem;
   }
 }
+
+/* Vibe Coding 卡是可点击的链接（新分页打开学习笔记） */
+.skill-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.skill-badge {
+  display: inline-block;
+  margin-top: 0.7rem;
+  font-size: 0.68rem;
+  font-family: 'Courier New', monospace;
+  color: var(--glow-color, #0f0);
+  background: color-mix(in srgb, var(--glow-color, #0f0) 14%, transparent);
+  border: 1px solid var(--glow-color, #0f0);
+  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+  text-shadow: 0 0 5px var(--glow-color, #0f0);
+  transition: all 0.2s ease;
+}
+
+.skill-link:hover .skill-badge {
+  background: var(--glow-color, #0f0);
+  color: #000;
+  text-shadow: none;
+}
