@@ -12,7 +12,7 @@ function App() {
       <Skills />
       <SummerPlan />
       <footer className="footer">
-        <p>Made with ❤️ by HeavySniper</p>
+        <p>Made with ❤️ by Ethan</p>
       </footer>
     </div>
   )

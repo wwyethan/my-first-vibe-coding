@@ -3,7 +3,7 @@ import './About.css'
 
 function About() {
   const [displayText, setDisplayText] = useState('')
-  const fullText = 'HeavySniper'
+  const fullText = 'Ethan'
 
   useEffect(() => {
     let index = 0
