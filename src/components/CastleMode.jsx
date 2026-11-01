@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import CastleHall from './CastleHall'
 import './CastleMode.css'
 
 // 附魔风格的神秘符号：北欧符文 + 运算/数学符号（像 Minecraft 附魔台那种）
@@ -10,8 +11,10 @@ const GLYPHS = [
 
 function CastleMode({ onExit }) {
   const [bursting, setBursting] = useState(false) // 鼠标移开：缩小 + 全屏绿光炸开
-  const [warping, setWarping] = useState(false) // 点击：符号组成魔法阵
-  const [teleporting, setTeleporting] = useState(false) // 点击后：传送闪光
+  const [warping, setWarping] = useState(false) // 点击漩涡：符号组成魔法阵
+  const [teleporting, setTeleporting] = useState(false) // 点击漩涡后：传送闪光
+  const [stage, setStage] = useState('outside') // 'outside' 城堡外 | 'hall' 城堡大厅
+  const [lightingUp, setLightingUp] = useState(false) // 点大门后：城堡亮暖黄灯的过渡
 
   // 被吸进漩涡的符号（用 useMemo 固定，避免重渲染时乱跳）
   const symbols = useMemo(
@@ -27,7 +30,7 @@ function CastleMode({ onExit }) {
     []
   )
 
-  // 点击后在空中排成魔法阵的符号（均匀分布成一圈）
+  // 点击漩涡后在空中排成魔法阵的符号（均匀分布成一圈）
   const circleGlyphs = useMemo(
     () => Array.from({ length: 12 }, (_, i) => ({
       glyph: GLYPHS[(i * 3) % GLYPHS.length],
@@ -58,11 +61,19 @@ function CastleMode({ onExit }) {
   }, [onExit])
 
   // 点击漩涡：符号组成魔法阵 → 传送闪光 → 回到 Skills 页面
-  const handleClick = () => {
+  const handlePortalClick = () => {
     if (warping) return
     setWarping(true)
     setTimeout(() => setTeleporting(true), 1000)
     setTimeout(() => onExit(true), 1450)
+  }
+
+  // 点击城堡大门：整座城堡亮暖黄灯 → 暖光铺满 → 进入大厅
+  const handleGateClick = () => {
+    if (lightingUp || stage !== 'outside') return
+    setLightingUp(true)
+    setTimeout(() => setStage('hall'), 1000) // 暖光最盛时切入大厅
+    setTimeout(() => setLightingUp(false), 1700) // 大厅已盖住，撤掉暖光层
   }
 
   return (
@@ -91,8 +102,13 @@ function CastleMode({ onExit }) {
         <div className="cloud cloud-2" />
         <div className="cloud cloud-3" />
 
-        {/* 巨大的动漫城堡（SVG 画的） */}
-        <svg className="castle" viewBox="0 0 800 620" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+        {/* 巨大的动漫城堡（SVG 画的）；亮灯时加 lit 类 */}
+        <svg
+          className={`castle${lightingUp ? ' lit' : ''}`}
+          viewBox="0 0 800 620"
+          preserveAspectRatio="xMidYMax meet"
+          aria-hidden="true"
+        >
           <defs>
             <linearGradient id="stoneGrad" x1="0" y1="0" x2="1" y2="0">
               <stop offset="0%" stopColor="#a99bd0" />
@@ -166,9 +182,23 @@ function CastleMode({ onExit }) {
           <line x1="400" y1="58" x2="400" y2="16" stroke="#e8e0ff" strokeWidth="3.5" />
           <polygon points="400,18 448,32 400,46" fill="#ffd23f" />
 
-          {/* 发光的大门 */}
-          <path d="M366 620 L366 538 Q400 492 434 538 L434 620 Z" fill="url(#gateGlow)" />
-          <path d="M366 620 L366 538 Q400 492 434 538 L434 620" fill="none" stroke="#2a1a10" strokeWidth="5" />
+          {/* 发光的大门（点击进入城堡大厅） */}
+          <g
+            className="gate"
+            role="button"
+            tabIndex={0}
+            aria-label="进入城堡大厅"
+            onClick={handleGateClick}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault()
+                handleGateClick()
+              }
+            }}
+          >
+            <path d="M366 620 L366 538 Q400 492 434 538 L434 620 Z" fill="url(#gateGlow)" />
+            <path d="M366 620 L366 538 Q400 492 434 538 L434 620" fill="none" stroke="#2a1a10" strokeWidth="5" />
+          </g>
 
           {/* 发光窗户 */}
           <g className="win" fill="url(#winGlow)">
@@ -209,11 +239,11 @@ function CastleMode({ onExit }) {
           tabIndex={0}
           aria-label="返回原本的页面"
           title="点我传送回原本的页面"
-          onClick={handleClick}
+          onClick={handlePortalClick}
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') {
               e.preventDefault()
-              handleClick()
+              handlePortalClick()
             }
           }}
           onMouseLeave={() => {
@@ -262,14 +292,20 @@ function CastleMode({ onExit }) {
           )}
         </div>
 
-        <p className="castle-hint">🌀 点击时光漩涡传送回原本页面（或按 Esc）· 移开鼠标会引爆绿光</p>
+        <p className="castle-hint">🌀 点漩涡 → 传送回网页　·　🚪 点城堡大门 → 进入大厅　·　移开鼠标引爆绿光</p>
       </div>
 
       {/* 鼠标移开：覆盖全屏的绿光（不在漩涡内部，才能盖住整屏） */}
       {bursting && <div className="screen-flash" onAnimationEnd={() => setBursting(false)} />}
 
-      {/* 点击：传送闪光 */}
+      {/* 点击漩涡：传送闪光 */}
       {teleporting && <div className="teleport-flash" />}
+
+      {/* 点大门：暖黄光铺满屏幕，过渡进大厅 */}
+      {lightingUp && <div className="warm-flash" />}
+
+      {/* 进入城堡内部大厅 */}
+      {stage === 'hall' && <CastleHall onBack={() => setStage('outside')} />}
     </div>
   )
 }

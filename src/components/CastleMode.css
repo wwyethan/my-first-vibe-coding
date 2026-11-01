@@ -381,3 +381,47 @@
   .mc-ring.r2 { width: 150px; height: 150px; margin: -75px 0 0 -75px; }
   .castle-hint { font-size: 0.75rem; white-space: normal; text-align: center; width: 86%; }
 }
+
+/* ===== 城堡大门（可点击，平时轻微脉冲吸引注意） ===== */
+.castle .gate {
+  cursor: pointer;
+  transition: filter 0.3s ease;
+  animation: gateBeckon 2.8s ease-in-out infinite;
+}
+.castle .gate:hover {
+  animation: none;
+  filter: drop-shadow(0 0 22px #ffd76b) brightness(1.35);
+}
+@keyframes gateBeckon {
+  0%, 100% { filter: drop-shadow(0 0 4px rgba(255, 200, 100, 0.35)); }
+  50% { filter: drop-shadow(0 0 15px rgba(255, 210, 120, 0.9)); }
+}
+
+/* ===== 点大门后：整座城堡亮起暖黄灯 ===== */
+.castle.lit {
+  filter: drop-shadow(0 0 34px rgba(255, 190, 90, 0.55));
+}
+.castle.lit .win {
+  fill: #ffe9a0;
+  filter: drop-shadow(0 0 10px #ffcf5c) drop-shadow(0 0 26px #ff9d2e);
+}
+.castle.lit .gate {
+  animation: none;
+  filter: drop-shadow(0 0 30px #ffd76b) brightness(1.45);
+}
+
+/* ===== 暖黄光铺满全屏（过渡进大厅） ===== */
+.warm-flash {
+  position: fixed;
+  inset: 0;
+  z-index: 25;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 68%, rgba(255, 240, 190, 0.98) 0%, rgba(255, 205, 110, 0.9) 38%, rgba(230, 160, 70, 0.6) 68%, transparent 100%);
+  opacity: 0;
+  animation: warmFlash 1.6s ease-in forwards;
+}
+@keyframes warmFlash {
+  0% { opacity: 0; }
+  55% { opacity: 0.85; }
+  100% { opacity: 1; }
+}
